@@ -1,0 +1,17 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div *ngIf="!userIsAuthenticated" class="navbar-header">
+      <a class="navbar-brand" routerLink="/login">Auth App</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li *ngIf="!userIsAuthenticated" class="active"><a routerLink="/login" routerLinkActive="active">Login</a></li>
+      <li *ngIf="!userIsAuthenticated"><a routerLink="/register" routerLinkActive="active">Register</a></li>
+      <li *ngIf="userIsAuthenticated"><a (click)="logout()">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
