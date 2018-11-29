@@ -36,8 +36,9 @@ router.post('/login', (req,res) => {
                 if(postData.password != password) {
                     res.status(404).json({success: 'false', message: 'password not match'});
                 }else{
-                    const token = jwt.sign({email:email, password:password}, "secret_key", {expiresIn : "1h"});
-                    res.status(200).json({success: 'true', message: token});
+                    const token = jwt.sign({email:email, password:password}, 
+                        "secret_key", {expiresIn : "1h"});
+                    res.status(200).json({success: 'true', message: token, expiresIn : 3600});
                 }   
             } 
           });
@@ -49,7 +50,7 @@ router.post('/register',(req,res) => {
     if(!postData.email || !postData.password) {
         res.status(200).json({success: 'false', message: 'email and password both are required'});
     }else {
-        var query = connection.query('INSERT INTO userdetails SET ?', postData, function (error, results, fields) {
+        let query = connection.query('INSERT INTO userdetails SET ?', postData, function (error, results, fields) {
             if (error) {
                 res.status(200).json({success: 'false', message: error});
             }else {
@@ -66,7 +67,7 @@ router.get('/viewAllData', checkAuth, (req, res) => {
         }else{
             res.status(200).json({success: 'true', message: results});
         } 
-      });
+    });
 });
 
 
